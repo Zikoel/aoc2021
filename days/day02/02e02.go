@@ -1,34 +1,43 @@
 package day02
 
 import (
+	"aoc-2021/days/utils"
 	"fmt"
 	"strconv"
 	"strings"
 )
 
-type fda struct {
-	f int64
-	d int64
-	a int64
+type position struct {
+	x   int64
+	y   int64
+	aim int64
 }
 
-func applyInstruction2(p fda, istruction string) fda {
+func decodeInstruction(istruction string) (string, int64) {
 	parts := strings.Split(istruction, " ")
 	val, err := strconv.ParseInt(parts[1], 10, 64)
 
 	if err != nil {
-		panic("conv")
+		panic("decode error")
 	}
 
+	return parts[0], val
+}
+
+func applyIstruction(p position, istruction string) position {
+
+	action, val := decodeInstruction(istruction)
+
 	r := p
-	switch parts[0] {
+
+	switch action {
 	case "forward":
-		r.f += val
-		r.d += r.a * val
+		r.x += val
+		r.y += r.aim * val
 	case "down":
-		r.a += val
+		r.aim += val
 	case "up":
-		r.a -= val
+		r.aim -= val
 	}
 
 	return r
@@ -36,13 +45,13 @@ func applyInstruction2(p fda, istruction string) fda {
 
 // Run run
 func Run2(data []byte) {
-	instructions := strings.Split(string(data), "\n")
+	instructions := utils.ListOfStrings(data)
 
-	p := fda{0, 0, 0}
+	p := position{0, 0, 0}
 	for _, i := range instructions {
-		p = applyInstruction2(p, i)
+		p = applyIstruction(p, i)
 	}
 
-	fmt.Printf("%d\n", p.d*p.f)
+	fmt.Printf("%d\n", p.y*p.x)
 
 }

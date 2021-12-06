@@ -49,9 +49,30 @@ func ListContains(list []int, val int) bool {
 	return false
 }
 
+// ListContains64 check if list contains the value val
+func ListContains64(list []int64, val int64) bool {
+	for _, v := range list {
+		if v == val {
+			return true
+		}
+	}
+
+	return false
+}
+
 // ListElementsSum sum all element of a list
 func ListElementsSum(list []int) int {
 	result := 0
+	for _, val := range list {
+		result += val
+	}
+
+	return result
+}
+
+// ListElementsSum64 sum all element of a list
+func ListElementsSum64(list []int64) int64 {
+	result := int64(0)
 	for _, val := range list {
 		result += val
 	}
@@ -86,6 +107,20 @@ func ListMin(list []int) int {
 // ListRemoveVal Remove all occurrence of val from list
 func ListRemoveVal(list []int, val int) []int {
 	result := []int{}
+	for _, v := range list {
+		if v == val {
+			continue
+		}
+
+		result = append(result, v)
+	}
+
+	return result
+}
+
+// ListRemoveVal Remove all occurrence of val from list
+func ListRemoveVal64(list []int64, val int64) []int64 {
+	result := []int64{}
 	for _, v := range list {
 		if v == val {
 			continue

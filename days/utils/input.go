@@ -49,3 +49,22 @@ func ListOfInt64(input []byte) []int64 {
 
 	return numbers
 }
+
+func ListOfSeparatedInt64(input []byte, separator string) []int64 {
+	txt := string(input)
+	strs := strings.Split(txt, separator)
+
+	numbers := []int64{}
+
+	for _, val := range strs {
+		v, err := strconv.ParseInt(val, 10, 64)
+
+		if err != nil {
+			log.Fatalf("%v", err)
+		}
+
+		numbers = append(numbers, v)
+	}
+
+	return numbers
+}
